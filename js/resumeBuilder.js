@@ -13,7 +13,39 @@ var bio=
             "Java",
             "C++",
             "Electronics"
-        ]
+        ],
+    display: function()
+    {
+        var formatted=HTMLheaderRole.replace("%data%",bio.role)
+        $("#header").prepend(formatted);
+        formatted=HTMLheaderName.replace("%data%",bio.name)
+        $("#header").prepend(formatted);
+        formatted=HTMLemail.replace("%data%",bio.contacts.email)
+        $("#topContacts, #footerContacts").append(formatted);
+        formatted=HTMLgithub.replace("%data%",bio.contacts.github)
+        $("#topContacts, #footerContacts").append(formatted);
+        formatted=HTMLlocation.replace("%data%",bio.contacts.location)
+        $("#topContacts, #footerContacts").append(formatted);
+        formatted=HTMLmobile.replace("%data%",bio.contacts.mobile)
+        $("#topContacts, #footerContacts").append(formatted);
+        formatted=HTMLbioPic.replace("%data%",bio.pic)
+        $("#header").append(formatted);
+        $(".biopic").addClass("circular");
+        formatted=HTMLWelcomeMsg.replace("%data%",bio.welcomeMessage)
+        $("#header").append(formatted);
+    
+
+        if(bio.skills.length >0)
+        {
+            $("#header").append(HTMLskillsStart);
+            var form
+            for(skill in bio.skills)
+            {
+                form=HTMLskills.replace("%data%",bio.skills[skill])
+                $("#skills").append(form);
+            }
+        }
+    }
 }
 
 var work =
@@ -33,9 +65,24 @@ var work =
     		"dates":"2007-2008",
     		"location": "Santo Domingo, San Isidro",
     		"description":"Manintenance and support of memories testing machines.  This company works with a lot of pressuere because the huge amount of products they built and test every  day.  It requiered a fast responce to any failure on the test equipments."
-    		
     	}
-    ]
+    ],
+    display:function()
+    {
+        for(company in work.jobs)
+        {
+            $("#workExperience").append(HTMLworkStart);
+            var date = HTMLworkDates.replace("%data%",work.jobs[company].dates)
+            var desc=HTMLworkDescription.replace("%data%",work.jobs[company].description)
+            var loc = HTMLworkLocation.replace("%data%",work.jobs[company].location)
+            var format1 = HTMLworkEmployer.replace("%data%",work.jobs[company].employer)
+            var format2 = HTMLworkTitle.replace("%data%",work.jobs[company].title)
+            $(".work-entry:last").append(format1 + format2);
+            $(".work-entry:last").append(date);
+            $(".work-entry:last").append(desc);
+            $(".work-entry:last").append(loc);
+        }
+    }
 }
 
 var projects =
@@ -53,7 +100,22 @@ var projects =
     		"images": "images/portfolioSite.jpg",
     		"description":"This project is responsive page made from a given mockup."
     	}
-    ]
+    ],
+       display: function()
+    {
+        for(obj in projects.projects)
+        {
+            $("#projects").append(HTMLprojectStart);
+            var title = HTMLprojectTitle.replace("%data%",projects.projects[obj].title)
+            var date= HTMLprojectDates.replace("%data%",projects.projects[obj].dates)
+            var desk = HTMLprojectDescription.replace("%data%",projects.projects[obj].description)
+            var img = HTMLprojectImage.replace("%data%",projects.projects[obj].images)
+            $(".project-entry:last").append(title);
+            $(".project-entry:last").append(date);
+            $(".project-entry:last").append(desk);
+            $(".project-entry:last").append(img);
+        }
+    }
 }
 
 var education=
@@ -64,7 +126,7 @@ var education=
           "location":"Santo Domingo, Republica Dominicana",
           "degree":"Digital Electronic and Microcomputers Technician",
           "major":"Electronics",
-          "date": 2003-2007,
+          "date": 2007,
           "courseInfo": "Electronics",
           "url":"http://"
         },
@@ -73,7 +135,7 @@ var education=
     	   "location":"Santo Domingo, Republica Dominicana",
     	   "degree":"Programable Logic Controlers Techinician",
     	   "major":"Electronic Engineering",
-    	   "date":2008-2009,
+    	   "date":2008,
     	   "url":"http://www.itiquezada.com/"
         }
     ]
@@ -86,121 +148,42 @@ var education=
  		   "date":"2013",
  		   "url":"https://www.udacity.com/course/cs101"
  	   }
- 	]
-}
-
-function displayBio()
-{
-    var formatted=HTMLheaderRole.replace("%data%",bio.role)
-    $("#header").prepend(formatted);
-    formatted=HTMLheaderName.replace("%data%",bio.name)
-    $("#header").prepend(formatted);
-
-
-    formatted=HTMLemail.replace("%data%",bio.contacts.email)
-    $("#topContacts, #footerContacts").append(formatted);
-    formatted=HTMLgithub.replace("%data%",bio.contacts.github)
-    $("#topContacts, #footerContacts").append(formatted);
-    formatted=HTMLlocation.replace("%data%",bio.contacts.location)
-    $("#topContacts, #footerContacts").append(formatted);
-    formatted=HTMLmobile.replace("%data%",bio.contacts.mobile)
-    $("#topContacts, #footerContacts").append(formatted);
-    formatted=HTMLbioPic.replace("%data%",bio.pic)
-    $("#header").append(formatted);
-    $(".biopic").addClass("circular");
-    formatted=HTMLWelcomeMsg.replace("%data%",bio.welcomeMessage)
-    $("#header").append(formatted);
-    
-
-    if(bio.skills.length >0)
+ 	],
+    display: function()
     {
-        $("#header").append(HTMLskillsStart);
-        var form
-        for(skill in bio.skills)
+        $("#education").append(HTMLschoolStart);
+        for(vary in education.schools)
         {
-            form=HTMLskills.replace("%data%",bio.skills[skill])
-            $("#skills").append(form);
+            var formattedEdu = HTMLschoolName .replace("%data%",education.schools[vary].name)
+            $(".education-entry").append(formattedEdu);
+            formattedEdu = HTMLschoolDegree.replace("%data%",education.schools[vary].degree)
+            $(".education-entry").append(formattedEdu); 
+            formattedEdu = HTMLschoolDates.replace("%data%",education.schools[vary].date)
+            $(".education-entry").append(formattedEdu);  
+            formattedEdu = HTMLschoolLocation.replace("%data%",education.schools[vary].location)
+            $(".education-entry").append(formattedEdu);  
+            formattedEdu = HTMLschoolMajor.replace("%data%",education.schools[vary].major)
+            $(".education-entry").append(formattedEdu);
         }
-    }
-}
-
-
-function displayWork()
-{
-    for(company in work.jobs)
-    {
-	   $("#workExperience").append(HTMLworkStart);
-	   var date = HTMLworkDates.replace("%data%",work.jobs[company].dates)
-	   var desc=HTMLworkDescription.replace("%data%",work.jobs[company].description)
-	   var loc = HTMLworkLocation.replace("%data%",work.jobs[company].location)
-	   var format1 = HTMLworkEmployer.replace("%data%",work.jobs[company].employer)
-	   var format2 = HTMLworkTitle.replace("%data%",work.jobs[company].title)
-	   $(".work-entry:last").append(format1 + format2);
-	   $(".work-entry:last").append(date);
-	   $(".work-entry:last").append(desc);
-	   $(".work-entry:last").append(loc);
-    }
-}
-
-function displayProjects()
-{
-    for(obj in projects.projects)
-    {
-        $("#projects").append(HTMLprojectStart);
-        var title = HTMLprojectTitle.replace("%data%",projects.projects[obj].title)
-        var date= HTMLprojectDates.replace("%data%",projects.projects[obj].dates)
-        var desk = HTMLprojectDescription.replace("%data%",projects.projects[obj].description)
-        var img = HTMLprojectImage.replace("%data%",projects.projects[obj].images)
-        $(".project-entry:last").append(title);
-        $(".project-entry:last").append(date);
-        $(".project-entry:last").append(desk);
-        $(".project-entry:last").append(img);
-    }
-}
-
-function displaySchools()
-{
-    $("#education").append(HTMLschoolStart);
-    for(vary in education.schools)
-    {
-        var formattedEdu = HTMLschoolName .replace("%data%",education.schools[vary].name)
-        $(".education-entry").append(formattedEdu);
-        formattedEdu = HTMLschoolDegree.replace("%data%",education.schools[vary].degree)
-        $(".education-entry").append(formattedEdu); 
-        formattedEdu = HTMLschoolDates.replace("%data%",education.schools[vary].date)
-        $(".education-entry").append(formattedEdu);  
-        formattedEdu = HTMLschoolLocation.replace("%data%",education.schools[vary].location)
-        $(".education-entry").append(formattedEdu);  
-        formattedEdu = HTMLschoolMajor.replace("%data%",education.schools[vary].major)
-        $(".education-entry").append(formattedEdu);
-    }
-    if (education.onlineCourses.length > 0) 
-    {
-        $("#education").append(HTMLonlineClasses);
-        for (online in education.onlineCourses) 
+        if (education.onlineCourses.length > 0) 
         {
-            $("#education").append(HTMLschoolStart);
+            $("#education").append(HTMLonlineClasses);
+            for (online in education.onlineCourses) 
+            {
+                $("#education").append(HTMLschoolStart);
         
-            var formattedol = HTMLonlineTitle .replace("%data%",education.onlineCourses[online].title)
-            $(".education-entry:last").append(formattedol);
-            formattedol = HTMLonlineSchool.replace("%data%",education.onlineCourses[online].school)
-            $(".education-entry:last").append(formattedol); 
-            formattedol = HTMLonlineDates.replace("%data%",education.onlineCourses[online].date)
-            $(".education-entry:last").append(formattedol);  
-            formattedol = HTMLonlineURL.replace("%data%",education.onlineCourses[online].url)
-            $(".education-entry:last").append(formattedol);  
+                var formattedol = HTMLonlineTitle .replace("%data%",education.onlineCourses[online].title)
+                $(".education-entry:last").append(formattedol);
+                formattedol = HTMLonlineSchool.replace("%data%",education.onlineCourses[online].school)
+                $(".education-entry:last").append(formattedol); 
+                formattedol = HTMLonlineDates.replace("%data%",education.onlineCourses[online].date)
+                $(".education-entry:last").append(formattedol);  
+                formattedol = HTMLonlineURL.replace("%data%",education.onlineCourses[online].url)
+                $(".education-entry:last").append(formattedol);  
+            }
         }
     }
 }
-
-$(document).click(function(loc) 
-{
-	var x= loc.pageX;
-	var y= loc.pageY;
-
-	logClicks(x,y);
-})
-
 
 function inName(oldName)
 {
@@ -212,10 +195,10 @@ function inName(oldName)
 }
 
 
-displayBio();
-displayWork();
-displayProjects();
-displaySchools();
+bio.display();
+work.display();
+projects.display();
+education.display();
 
 $("#mapDiv").append(googleMap);
 $("#main").append(internationalizeButton);
